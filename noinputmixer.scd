@@ -312,18 +312,49 @@ m.latency = 0; // this is set to 0.2 by default必ず実行
 //s.addr, '/tr',
 ~osctrig_1 = OSCdef(\trig01, { arg msg, time, addr, recvPort;
 
-	//msg.at(2).postln;
+	//msg.at(3).postln;
 
 	if(msg.at(2) == ~receiveTrigID_1, {
 		if(msg.at(3) == 1,{
-			// On Action
-			//m.noteOn(16, 36, 127.rand);
+			//counter
+	~counter = ~counter +1;
+	~seqcol1 = ~counter % numCols;//stepの現在位置
+
+//MIDIトリガー
+//最下段のトラック
+//もしArray[~seqcol1]が１なら発音
+	if(matrix[numRows-1,~seqcol1] == 1){
+		//"kick".postln;
+		m.noteOn(16, 36, 127.rand);//octatrack Tr1
+	};
+	//下から２番目のトラック
+	if(matrix[numRows-2,~seqcol1] == 1){
+		//"snare".postln;
+		m.noteOn(16, 37, 127.rand);//octatrack Tr2
+	};
+
+	//下から3番目のトラック
+	if(matrix[numRows-3,~seqcol1] == 1){
+		//"snare".postln;
+		m.noteOn(16, 39, 127.rand);//octatrack Tr4
+	};
+
+	//下から4番目のトラック
+	if(matrix[numRows-4,~seqcol1] == 1){
+		//"snare".postln;
+		m.noteOn(16, 41, 127.rand);//octatrack Tr6 arab
+	};
+	//下から5番目のトラック
+	if(matrix[numRows-5,~seqcol1] == 1){
+		//"snare".postln;
+		m.noteOn(16, 40, 127.rand);//octatrack Tr5 arab
+	};
+
+
 		})
 	});
 
-//counter
-	~counter = ~counter +1;
-	~seqcol1 = ~counter % numCols;//stepの現在位置
+
  //	~seqcol1.postln;
 
 //LED点灯切り替え
@@ -341,32 +372,6 @@ m.latency = 0; // this is set to 0.2 by default必ず実行
 		}.defer;
 	};
 
-
-//MIDIトリガー
-	//最下段のトラック
-	//もしArray[~seqcol1]が１なら発音
-	if(matrix[numRows-1,~seqcol1] == 1){
-		//"kick".postln;
-		m.noteOn(16, 36, 127.rand);//octatrack Tr1
-	};
-
-	//下から２番目のトラック
-	if(matrix[numRows-2,~seqcol1] == 1){
-		//"snare".postln;
-		m.noteOn(16, 37, 127.rand);//octatrack Tr2
-	};
-
-	//下から3番目のトラック
-	if(matrix[numRows-3,~seqcol1] == 1){
-		//"snare".postln;
-		m.noteOn(16, 39, 127.rand);//octatrack Tr4
-	};
-
-	//下から4番目のトラック
-	if(matrix[numRows-4,~seqcol1] == 1){
-		//"snare".postln;
-		m.noteOn(16, 38, 127.rand);//octatrack Tr3
-	};
 
 
 
@@ -531,6 +536,24 @@ Array.fill(~size,{arg i;
 		});
 	});
 });
+
+//説明テキスト
+Array.fill(~size,{arg i;
+	StaticText(c[i], 80@20)
+	.string_(
+		switch(i,
+			0,{"SEQ"},
+			1,{"Mophatt"},
+			2,{"Wutan"},
+			3,{"Evolver"},
+			4,{"Arab"}
+
+		);
+	);
+
+});
+
+
 
 w.view.decorator.nextLine;
 
