@@ -93,7 +93,7 @@ Button(window,  Rect(0, 0, layout.button.x*2, layout.button.y) )
 	.action_({arg butt;
 	if(butt.value == 1,{//~oscsend_1=Synth(\detectSendOSC_1);},{~oscsend_1.free;});
 	}
-	);
+)});
 
 //スペーサー
 Button(window,  Rect(0, 0, layout.button.x, layout.button.y))
