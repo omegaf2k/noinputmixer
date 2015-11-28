@@ -33,7 +33,7 @@
 // ................ init
 
 var numRows = 6*1; // <-- change size here!!!ステップの縦横サイズ指定
-var numCols = 1*8; // <-- and here!!!
+var numCols = 1*16; // <-- and here!!!
 
 var window, decorator, matrix, buttonMatrix, leds;
 var synthName, scale, octave, root, transp, sustain, amp;
@@ -342,7 +342,7 @@ m.latency = 0; // this is set to 0.2 by default必ず実行
 	};
 
 
-//MIDI送信
+//MIDIトリガー
 	//最下段のトラック
 	//もしArray[~seqcol1]が１なら発音
 	if(matrix[numRows-1,~seqcol1] == 1){
@@ -352,16 +352,21 @@ m.latency = 0; // this is set to 0.2 by default必ず実行
 
 	//下から２番目のトラック
 	if(matrix[numRows-2,~seqcol1] == 1){
-		"snare".postln;
+		//"snare".postln;
 		m.noteOn(16, 37, 127.rand);//octatrack Tr2
 	};
 
-				// //下から3番目のトラック
-				// if(matrix[numRows-2,~seqcol1] == 1){
-				// 	"snare".postln;
-				// 	m.noteOn(16, 38, 127.rand);//octatrack Tr3
-				// };
-				//
+	//下から3番目のトラック
+	if(matrix[numRows-3,~seqcol1] == 1){
+		//"snare".postln;
+		m.noteOn(16, 39, 127.rand);//octatrack Tr4
+	};
+
+	//下から4番目のトラック
+	if(matrix[numRows-4,~seqcol1] == 1){
+		//"snare".postln;
+		m.noteOn(16, 38, 127.rand);//octatrack Tr3
+	};
 
 
 
